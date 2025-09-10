@@ -58,6 +58,8 @@ var currDate;
 
 async function generate(){
 
+  answered = 0;
+
   const scoreOutput = document.getElementById('score');
   scoreOutput.innerHTML = "";
 
@@ -83,6 +85,7 @@ async function generate(){
 }
 
 var max = 0;
+var answered = 0;
 
 function displayHidden(){
   const outputDiv = document.getElementById('output');  
@@ -105,10 +108,11 @@ function displayReveal(pts, diff_days){
 async function enterGuess(){
     const input = document.getElementById("guess").value;
     
-    calculateAnswer(input);
+    if (answered == 0)
+      calculateAnswer(input);
+    else
+      alert("Generate a new set and guess again.");
 }
-
-
 
 
 function calculateAnswer(input) {
@@ -136,7 +140,6 @@ function calculateAnswer(input) {
     let totalDays = 10775;
     const Dmax = totalDays / 2;
 
-
     //let pts = 0 - Math.pow(((1/half) * x), 2) + 100;
 
     const s = 100 * (1 - Math.pow (diff_days/ Dmax, 2));
@@ -153,6 +156,7 @@ function calculateAnswer(input) {
     }
 
     displayReveal(pts, diff_days);
+    answered = 1;
 
 
  
